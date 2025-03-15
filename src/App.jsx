@@ -9,6 +9,9 @@ const URL = "https://66cd012e8ca9aa6c8cc93b12.mockapi.io/api/v1"
 function App() {
   const [posts, setPosts] = useState([]);
 
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm();
+
+
   // El hook useEffect se ejecuta cuando el componente se monta, y me permite ejecutar el código que defino dentro de el de manera controlada y en el momento que yo quiera en base a las dependencias que le paso como segundo argumento.
   useEffect(() => {
 
@@ -56,32 +59,88 @@ function App() {
 
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm();
 
   // Función para agregar posts
-  function addPost(data) {
-    console.log(data);
+  async function addPost(data) {
 
-    // #Creamos el nuevo post en base a la data del form
-    const post = {
-      title: data.title,
-      email: data.email,
-      description: data.description,
-      id: posts.length + 1,
-    };
 
-    // #Hacemos una copia del array de posts
-    const postCopy = [...posts];
+    try {
+      console.log(data);
 
-    // #Agregamos a la copia el nuevo post
-    postCopy.push(post);
+      // #Creamos el nuevo post en base a la data del form
 
-    // #Actualizamos el estado de posts
-    setPosts(postCopy);
+
+      const newPost = {
+        title: data.title,
+        email: data.email,
+        description: data.description,
+        alreadyRead: false,
+        active: true,
+        createdAt: new Date().toISOString(),
+      };
+
+      const response = await axios.post(`${URL}/posts`, newPost)
+
+      console.log(response)
+
+      // getPosts()
+      setPosts([  ...posts, response.data ]  )
+
+
+
+    } catch (error) {
+      console.log(error);
+      alert("No se pudo crear el post")
+    }
+
+
+
+
+    
+
+
+
+    // // #Hacemos una copia del array de posts
+    // const postCopy = [...posts];
+
+    // // #Agregamos a la copia el nuevo post
+    // postCopy.push(post);
+
+    // // #Actualizamos el estado de posts
+    // setPosts(postCopy);
+  }
+
+  async function deletePost(id) {
+
+    console.log("Borrar post con id", id);
+
+    try {
+
+      const confirmDelete = confirm("¿Estás seguro de borrar este post?")
+
+      if(confirmDelete) {
+
+        await axios.delete(`${URL}/posts/${id}`)
+        getPosts()
+      }
+
+      
+    } catch (error) {
+      console.log(error);
+      alert("No se pudo borrar el post")
+    }
+
+    // // Buscamos la posicion de este elemento en el array post
+    
+    // const indice = posts.findIndex(post => post.id === id)
+    
+    // // Generar una copia del array de posts (estado)
+    // const postCopy = [...posts];
+    
+    // postCopy.splice(indice, 1) // Eliminamos el elemento en la posición indice
+
+    // setPosts(postCopy) // Actualizamos el estado de posts
+
   }
 
   return (
@@ -155,7 +214,7 @@ function App() {
 
       <Title titulo="Post creados" />
 
-      <PostsList posteos={posts} markAsRead={markAsRead} />
+      <PostsList posteos={posts} markAsRead={markAsRead} deletePost={deletePost} />
     </>
   );
 }

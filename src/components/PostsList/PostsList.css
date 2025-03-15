@@ -9,6 +9,10 @@
     .post-container {
         padding: 1rem;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        
+        &.leido {
+            filter: grayscale(1) opacity(.5);
+        }
 
 
         background-color: #121212;
