@@ -27,7 +27,7 @@ h1 {
   display: grid;
   gap: .5rem;
   width: max(20rem, 70%);
-  margin: 2rem auto;
+  margin: 0 auto;
 
   .input-group {
     display: flex;
@@ -44,6 +44,7 @@ h1 {
       border: 1px solid rgba(153, 205, 50, 0.418);
       border-radius: 0.25rem;
       color: #DDD;
+      width: 100%;
     }
 
     .error {
@@ -89,11 +90,36 @@ button {
     background-color: hsl(80, 61%, 35%);
   }
 
+  &.button-info {
+    background-color: #3b82f6;
+
+    &:hover {
+      background-color: hsl(210, 100%, 35%);
+    }
+  }
+
   &.button-danger {
     background-color: #fa3d63;
 
     &:hover {
       background-color: hsl(348, 95%, 51%);
     }
+  }
+}
+
+.admin-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 4fr 8fr;
+
+  > div {
+    padding: 1rem;
+  }
+}
+
+
+@media screen and (width < 768px) {
+  .admin-container {
+    grid-template-columns: 1fr;
   }
 }
