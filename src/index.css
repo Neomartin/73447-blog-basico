@@ -19,6 +19,11 @@
   box-sizing: border-box;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
 h1 {
   text-align: center;
 }
@@ -26,7 +31,7 @@ h1 {
 .post-form {
   display: grid;
   gap: .5rem;
-  width: max(20rem, 70%);
+  width: 100%;
   margin: 0 auto;
 
   .input-group {
@@ -79,12 +84,11 @@ button {
   transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 }
 
-.button-xs {
-  padding: .125rem 0;
-  width: 20px;
+.button {
+  padding: .5rem 1rem;
   background-color: yellowgreen;
   border-radius: 2px;
-
+  color: #242424;
 
   &:hover {
     background-color: hsl(80, 61%, 35%);
@@ -92,6 +96,7 @@ button {
 
   &.button-info {
     background-color: #3b82f6;
+    color: white;
 
     &:hover {
       background-color: hsl(210, 100%, 35%);
@@ -100,20 +105,41 @@ button {
 
   &.button-danger {
     background-color: #fa3d63;
+    color: white;
 
     &:hover {
       background-color: hsl(348, 95%, 51%);
     }
   }
+
+
+  &.button-xs {
+    padding: .125rem 0;
+    width: 20px;
+
+
+
+  }
+}
+
+.order-buttons {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+  margin: 1rem 0;
 }
 
 .admin-container {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: 4fr 8fr;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 
-  > div {
+  >div {
     padding: 1rem;
+  }
+
+  .admin-list {
+    grid-column: span 2;
   }
 }
 
