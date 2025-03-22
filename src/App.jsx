@@ -11,8 +11,10 @@ function App() {
   return (
     <>
       <Header />
-      {/* <OrderSidebar /> */}
+      <OrderSidebar />
+
       {/* <OrderModal /> */}
+      
       <Title
         titulo="Blog App"
         subtitle="Un blog para estar comunicados todos"

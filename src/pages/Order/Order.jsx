@@ -1,7 +1,11 @@
 import Title from "../../components/Title/Title";
+import { useOrder } from "../../context/OrderContext";
 import "./Order.css";
 
 export default function Order() {
+
+  const { cart, total } = useOrder()
+
   return (
     <>
       <Title
@@ -21,26 +25,24 @@ export default function Order() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>3</td>
-              <td>Un post muy interesante</td>
-              <td>1000</td>
-              <td>2</td>
-              <td>2000</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Otro post</td>
-              <td>3000</td>
-              <td>4</td>
-              <td>12000</td>
-            </tr>
+            {
+              cart.map(product => (
+                <tr key={product.id}>
 
-            {/* #Repetir el tr por cada producto */}
+                  <td>{ product.id }</td>
+                  <td>{ product.title }</td>
+                  <td>{ product.price }</td>
+                  <td>{ product.quantity }</td>
+                  <td>{ product.quantity * product.price }</td>
+                  
+                </tr>
+              ))
+            }
+
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={5}>TOTAL $</td>
+              <td colSpan={5}>TOTAL $ {total}</td>
             </tr>
           </tfoot>
         </table>

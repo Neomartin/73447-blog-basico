@@ -1,12 +1,17 @@
 import { faEdit, faEye } from "@fortawesome/free-regular-svg-icons";
-import { faBan, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faBan, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useOrder } from "../../context/OrderContext";
 
 export default function Post({ post, markAsRead, deletePost, updateProduct }) {
-  return (
 
-    <div className={`post-container ${post.alreadyRead ? 'leido' : ''}`} key={post.id}>
-      
+  const { addPost } = useOrder();
+
+  return (
+    <div
+      className={`post-container ${post.alreadyRead ? "leido" : ""}`}
+      key={post.id}
+    >
       <div className="post-header">
         <h2>
           {post.title}
@@ -26,27 +31,37 @@ export default function Post({ post, markAsRead, deletePost, updateProduct }) {
         <div className="buttons-container">
 
           <button
-              className="button-xs button-info"
-              title="Editar"
-              onClick={() => updateProduct(post)}
-            >
+            className="button button-xs button-info"
+            title="Añadir al carrito"
+            onClick={() => addPost(post)}
+          >
+            <FontAwesomeIcon icon={faAdd} />
+          </button>
+
+
+
+          <button
+            className="button button-xs button-info"
+            title="Editar"
+            onClick={() => updateProduct(post)}
+          >
             <FontAwesomeIcon icon={faEdit} />
           </button>
 
           <button
-            className="button-xs"
+            className="button button-xs"
             title="Marcar como leído"
             onClick={() => markAsRead(post.id)}
           >
             <FontAwesomeIcon icon={faEye} />
           </button>
 
-          <button className="button-xs button-secondary">
+          <button className="button button-xs button-secondary">
             <FontAwesomeIcon icon={faBan} />
           </button>
 
           <button
-            className="button-xs button-danger"
+            className="button button-xs button-danger"
             onClick={() => deletePost(post.id)}
           >
             <FontAwesomeIcon icon={faTrash} />
