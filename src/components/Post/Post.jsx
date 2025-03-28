@@ -2,6 +2,7 @@ import { faEdit, faEye } from "@fortawesome/free-regular-svg-icons";
 import { faAdd, faBan, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useOrder } from "../../context/OrderContext";
+import { Link } from "react-router-dom";
 
 export default function Post({ post, markAsRead, deletePost, updateProduct }) {
 
@@ -14,7 +15,10 @@ export default function Post({ post, markAsRead, deletePost, updateProduct }) {
     >
       <div className="post-header">
         <h2>
-          {post.title}
+
+          <Link to={`/post/${post.id}`}>
+            {post.title}
+          </Link>
 
           {post.alreadyRead && <span className="read">✅</span>}
         </h2>
@@ -29,7 +33,6 @@ export default function Post({ post, markAsRead, deletePost, updateProduct }) {
 
       <div className="post-footer">
         <div className="buttons-container">
-
           <button
             className="button button-xs button-info"
             title="Añadir al carrito"
@@ -37,8 +40,6 @@ export default function Post({ post, markAsRead, deletePost, updateProduct }) {
           >
             <FontAwesomeIcon icon={faAdd} />
           </button>
-
-
 
           <button
             className="button button-xs button-info"
